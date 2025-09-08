@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<title>
+		Home
+	</title>
+	<body>
+		<h1>image uploader</h1>
+		<a href="/uploads">Gallery</a>
+		<br/>
+		<img src="shut-the-frick-up.gif" alt="cat picture"/>
+		<form method="post" action="/upload" enctype="multipart/form-data"> 
+			<input type="file" name="imageFile" id="imageFile" accept="image/*"/>
+			<input type="submit" value="Submit"/>
+		</form>
+		<img id="preview" alt="Image preview" width=300/>
+	</body>
+	<script>
+		const fileInput = document.getElementById("imageFile");
+		const preview = document.getElementById("preview");
+		      fileInput.addEventListener("change", () => {
+        const file = fileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = e => {
+            preview.src = e.target.result; // data URL
+          };
+          reader.readAsDataURL(file); // convert file → base64 URL
+        } else {
+          preview.src = ""; // clear if no file
+        }
+      });
+	</script>
+</html>
